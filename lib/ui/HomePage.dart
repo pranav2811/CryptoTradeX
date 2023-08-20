@@ -1,4 +1,4 @@
-import 'package:cryptotradex/ui/watchlist.dart';
+import 'package:cryptotradex/watchlist/watchlist.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -25,21 +25,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       length: 3,
       child: Scaffold(
           bottomNavigationBar: BottomNavigationBar(
+            // backgroundColor: Colors.black,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.bookmark_border),
                 label: 'Watchlist',
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.white,
               ),
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.suitcase),
                 label: 'Portfolio',
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.white,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
                 label: 'Profile',
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.white,
               ),
             ],
             currentIndex: _selectedIndex,
