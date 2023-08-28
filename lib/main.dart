@@ -1,3 +1,4 @@
+import 'package:cryptotradex/Screens/login_screen.dart';
 import 'package:cryptotradex/ui/homepage.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomePage(),
+      //home: const HomePage(),
+      home: const loginScreen(),
     );
   }
 }
