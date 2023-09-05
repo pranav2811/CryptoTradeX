@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         transitionDuration: const Duration(milliseconds: 500),
         debugShowCheckedModeBanner: false,
         title: 'Crypto App',
-        home: HomePage(),
+        home:const loginScreen(),
         theme: darkModeTheme,
         darkTheme: darkModeTheme,
       );
