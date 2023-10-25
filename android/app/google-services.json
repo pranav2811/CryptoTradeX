@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "473695277455",
-    "project_id": "cryptotradex-7a0ce",
-    "storage_bucket": "cryptotradex-7a0ce.appspot.com"
+    "project_number": "674233901372",
+    "project_id": "cryptotradex-de989",
+    "storage_bucket": "cryptotradex-de989.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:473695277455:android:cf7f496d21e24f58143bfa",
+        "mobilesdk_app_id": "1:674233901372:android:2a2273cab675cf55e13e39",
         "android_client_info": {
           "package_name": "com.example.cryptotradex"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "473695277455-dqq8dshijrndn5ocupj2pgc4qbu93bd0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCYR6s5bry9k962ZpZIdr0LNvGSweQAV3U"
+          "current_key": "AIzaSyB4l47GEG9IyHI_N5kx4ZwGpvGJ6uAc3uk"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "473695277455-dqq8dshijrndn5ocupj2pgc4qbu93bd0.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

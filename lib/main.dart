@@ -1,12 +1,20 @@
 import 'package:cryptotradex/Screens/login_screen.dart';
 import 'package:cryptotradex/data/theme_data.dart';
-import 'package:cryptotradex/ui/HomePage.dart';
+import 'package:cryptotradex/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:sizer/sizer.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    name: 'CryptoTradeX',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

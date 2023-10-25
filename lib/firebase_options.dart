@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,31 +43,38 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyA9d3SRqUpFRPtz45LgJtcH77fG5DBwDZA',
+    appId: '1:674233901372:web:35d85e453f18f92ae13e39',
+    messagingSenderId: '674233901372',
+    projectId: 'cryptotradex-de989',
+    authDomain: 'cryptotradex-de989.firebaseapp.com',
+    storageBucket: 'cryptotradex-de989.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCYR6s5bry9k962ZpZIdr0LNvGSweQAV3U',
-    appId: '1:473695277455:android:cf7f496d21e24f58143bfa',
-    messagingSenderId: '473695277455',
-    projectId: 'cryptotradex-7a0ce',
-    storageBucket: 'cryptotradex-7a0ce.appspot.com',
+    apiKey: 'AIzaSyB4l47GEG9IyHI_N5kx4ZwGpvGJ6uAc3uk',
+    appId: '1:674233901372:android:2a2273cab675cf55e13e39',
+    messagingSenderId: '674233901372',
+    projectId: 'cryptotradex-de989',
+    storageBucket: 'cryptotradex-de989.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAkhe5rSZ7N18HFvS_PhU0bxqIzIB3xlr4',
-    appId: '1:473695277455:ios:9df832ba5fc33089143bfa',
-    messagingSenderId: '473695277455',
-    projectId: 'cryptotradex-7a0ce',
-    storageBucket: 'cryptotradex-7a0ce.appspot.com',
-    iosClientId: '473695277455-ic1g0n2pttpsoe5pte689pp6f2hc0e5g.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBwxOI_a0RX93nm8OKPRO9rTYqEu_fZALM',
+    appId: '1:674233901372:ios:a3cafd704048c800e13e39',
+    messagingSenderId: '674233901372',
+    projectId: 'cryptotradex-de989',
+    storageBucket: 'cryptotradex-de989.appspot.com',
     iosBundleId: 'com.example.cryptotradex',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAkhe5rSZ7N18HFvS_PhU0bxqIzIB3xlr4',
-    appId: '1:473695277455:ios:be64646075b44fca143bfa',
-    messagingSenderId: '473695277455',
-    projectId: 'cryptotradex-7a0ce',
-    storageBucket: 'cryptotradex-7a0ce.appspot.com',
-    iosClientId: '473695277455-hco6bb6gnf446am6ehphf59h7ajk8sih.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBwxOI_a0RX93nm8OKPRO9rTYqEu_fZALM',
+    appId: '1:674233901372:ios:d6fe419d7c9d9c4de13e39',
+    messagingSenderId: '674233901372',
+    projectId: 'cryptotradex-de989',
+    storageBucket: 'cryptotradex-de989.appspot.com',
     iosBundleId: 'com.example.cryptotradex.RunnerTests',
   );
 }
