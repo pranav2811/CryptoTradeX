@@ -244,7 +244,7 @@ class _signInScreenState extends State<signInScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Dont have an account? ',
+                      'Already have an account? ',
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 17,
@@ -255,7 +255,7 @@ class _signInScreenState extends State<signInScreen> {
                         _navigateToLoginScreen(context);
                       },
                       child: const Text(
-                        'Sign up',
+                        'SignIn',
                         style: TextStyle(
                             color: Color(0xFF0DF5E3),
                             fontSize: 17,

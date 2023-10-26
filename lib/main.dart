@@ -7,7 +7,6 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         transitionDuration: const Duration(milliseconds: 500),
         debugShowCheckedModeBanner: false,
         title: 'Crypto App',
-        home:const loginScreen(),
+        home: const loginScreen(),
         theme: darkModeTheme,
         darkTheme: darkModeTheme,
       );

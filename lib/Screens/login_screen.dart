@@ -1,14 +1,10 @@
 import 'package:cryptotradex/Screens/sign_up_screen.dart';
 import 'package:cryptotradex/ui/HomePage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../view_model/loginViewModel.dart';
-
-// Future<FirebaseApp> _initializeDefault() async {
-//   FirebaseApp firebaseApp = await Firebase.initializeApp();
-//   return firebaseApp;
-// }
 
 class loginScreen extends StatefulWidget {
   const loginScreen({super.key});
@@ -20,7 +16,8 @@ class loginScreen extends StatefulWidget {
 class _loginScreenState extends State<loginScreen> {
   bool _isVisible = false;
   final LoginViewModel loginController = Get.put(LoginViewModel());
-
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +52,7 @@ class _loginScreenState extends State<loginScreen> {
                   height: 20,
                 ),
                 TextField(
+                  controller: _emailController,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       labelText: "EMAIL",
@@ -71,6 +69,7 @@ class _loginScreenState extends State<loginScreen> {
                   height: 15,
                 ),
                 TextField(
+                  controller: _passwordController,
                   obscureText: !_isVisible,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
@@ -127,7 +126,21 @@ class _loginScreenState extends State<loginScreen> {
                       textStyle: const TextStyle(
                           color: Color(0xFF201A30),
                           fontWeight: FontWeight.bold)),
-                  onPressed: () {
+                  onPressed: () async {
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text);
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(e.toString()),
+                        ),
+                      );
+                    }
+
                     _navigateToHomeScreen(context);
                   },
                   child: const Text(
