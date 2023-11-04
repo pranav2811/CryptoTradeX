@@ -1,4 +1,5 @@
 import 'package:cryptotradex/Screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -206,8 +207,8 @@ class _signInScreenState extends State<signInScreen> {
                       textStyle: const TextStyle(
                           color: Color(0xFF201A30),
                           fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    setState(() {
+                  onPressed: () async {
+                    setState(() async {
                       if (_controller_name.text.isEmpty) {
                         nameIsEmpty = true;
                       }
@@ -228,7 +229,28 @@ class _signInScreenState extends State<signInScreen> {
                         emailIsEmpty = false;
                         phoneIsEmpty = false;
                         passwordIsEmpty = false;
-                        _navigateToLoginScreen(context);
+                        try {
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: _email_controller_name.text,
+                                  password: _password_controller_name.text);
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const loginScreen()));
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            print('The password provided is too weak.');
+                          } else if (e.code == 'email-already-in-use') {
+                            print('The account already exists for that email.');
+                          }
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.toString()),
+                            ),
+                          );
+                        }
+                        // _navigateToLoginScreen(context);
                       }
                     });
                   },
