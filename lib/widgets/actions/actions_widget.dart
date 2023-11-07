@@ -9,9 +9,16 @@ Padding actionsWidget(ThemeData themeData) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        actionWidget(UniconsLine.download_alt, 'Receive', themeData),
-        actionWidget(UniconsLine.money_bill, 'Topup', themeData),
-        actionWidget(UniconsLine.upload_alt, 'Withdraw', themeData),
+        actionWidget(UniconsLine.download_alt, 'Receive', themeData, (){
+          //idhar receive button ka logic daldio
+        }),
+        actionWidget(UniconsLine.money_bill, 'Topup', themeData, () {
+          //idhar topup button ka logic daldio
+        
+        }),
+        actionWidget(UniconsLine.upload_alt, 'Withdraw', themeData, () {
+          //idhar withdraw button ka logi daldio
+        }),
       ],
     ),
   );

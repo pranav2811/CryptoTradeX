@@ -6,13 +6,14 @@ Padding actionWidget(
   IconData actionIcon,
   String actionStr,
   ThemeData themeData,
+  VoidCallback onTapCallback,
 ) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 2.h),
     child: Column(
       children: [
         InkWell(
-          onTap: () {}, //TODO: add onTap action
+          onTap: onTapCallback, //TODO: add onTap action
           child: Container(
             decoration: BoxDecoration(
               color: themeData.primaryColor.withOpacity(0.05),
