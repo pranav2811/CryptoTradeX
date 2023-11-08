@@ -17,8 +17,8 @@ class _loginScreenState extends State<loginScreen> {
   bool _isVisible = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   final LoginViewModel loginController = Get.put(LoginViewModel());
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -136,8 +136,9 @@ class _loginScreenState extends State<loginScreen> {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                             email: _emailController.text,
                             password: _passwordController.text);
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => HomePage()));
+                            MaterialPageRoute(builder: (context) => const HomePage()));
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

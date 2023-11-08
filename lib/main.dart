@@ -23,10 +23,10 @@ Future<void> main() async {
     firebaseAppCheck.activate(
       androidProvider: AndroidProvider.debug,
     );
-    firebaseAppCheck.getToken().then((value) => print("APP CHECK: $value"));
+    firebaseAppCheck.getToken().then((value) => debugPrint("APP CHECK: $value"));
     runApp(const MyApp());
   } catch (e) {
-    print("Error initializing Firebase");
+    debugPrint("Error initializing Firebase");
   }
 }
 

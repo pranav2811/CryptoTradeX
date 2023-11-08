@@ -35,6 +35,7 @@ class _signInScreenState extends State<signInScreen> {
   bool emailIsEmpty = false;
   bool passwordIsEmpty = false;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF201A30),
@@ -243,9 +244,9 @@ class _signInScreenState extends State<signInScreen> {
                                     builder: (context) => const loginScreen()));
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
-                              print('The password provided is too weak.');
+                              debugPrint('The password provided is too weak.');
                             } else if (e.code == 'email-already-in-use') {
-                              print('The account already exists for that email.');
+                              debugPrint('The account already exists for that email.');
                             }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(

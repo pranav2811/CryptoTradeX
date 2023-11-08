@@ -7,14 +7,14 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 Padding chartHomePage(
-  bool isHomePage,
-  IconData cryptoIcon,
-  String crypto,
-  String cryptoCode,
-  String exchangeCurrency,
-  List<FlSpot> spots,
-  ThemeData themeData,
-) {
+    bool isHomePage,
+    IconData cryptoIcon,
+    String crypto,
+    String cryptoCode,
+    String exchangeCurrency,
+    List<FlSpot> spots,
+    ThemeData themeData,
+    {required double priceUSD}) {
   Rx<double> minY = 0.0.obs;
   Rx<double> maxY = 0.0.obs;
   List sortedSpots = spots.toList();
