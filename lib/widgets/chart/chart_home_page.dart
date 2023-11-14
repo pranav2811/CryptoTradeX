@@ -1,20 +1,20 @@
-import 'package:cryptotradex/ui/detailsPage.dart';
+import 'package:cryptotradex/pages/details_page.dart';
 import 'package:cryptotradex/widgets/balance_panel/profit_percentage.dart';
-import 'package:cryptotradex/widgets/chart/chart.dart';
+import 'chart.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 Padding chartHomePage(
-    bool isHomePage,
-    IconData cryptoIcon,
-    String crypto,
-    String cryptoCode,
-    String exchangeCurrency,
-    List<FlSpot> spots,
-    ThemeData themeData,
-    {required double priceUSD}) {
+  bool isHomePage,
+  IconData cryptoIcon,
+  String cryptoName,
+  String cryptoCode,
+  String exchangeCurrency,
+  List<FlSpot> spots,
+  ThemeData themeData,
+) {
   Rx<double> minY = 0.0.obs;
   Rx<double> maxY = 0.0.obs;
   List sortedSpots = spots.toList();
@@ -32,13 +32,13 @@ Padding chartHomePage(
         onTap: () => Get.to(
           () => DetailsPage(
             cryptoIcon: cryptoIcon,
-            crypto: crypto,
-            cryptoCode: cryptoCode,
-            exchangeCurrency: exchangeCurrency,
             spots: spots,
             profitPercent: profitPercent,
             maxY: maxY.value,
             minY: minY.value,
+            cryptoCode: cryptoCode,
+            cryptoName: cryptoName,
+            exchangeCurrency: exchangeCurrency,
           ),
         ),
         child: Container(
@@ -73,7 +73,7 @@ Padding chartHomePage(
                         child: SizedBox(
                           width: 50.w,
                           child: Text(
-                            '$crypto ($cryptoCode)  - $exchangeCurrency',
+                            '$cryptoName ($cryptoCode) - $exchangeCurrency',
                             style: TextStyle(
                               fontSize: 12.sp,
                               color: Colors.white,
@@ -95,8 +95,14 @@ Padding chartHomePage(
                     width: 90.w,
                     height: 10.h,
                     child: Obx(
-                      () => LineChart(chart(isHomePage, spots, minY.value,
-                          maxY.value, profitPercent >= 0)),
+                      () => LineChart(chart(
+                        isHomePage,
+                        spots,
+                        minY.value,
+                        maxY.value,
+                        7,
+                        profitPercent >= 0,
+                      )),
                     ),
                   ),
                 ),

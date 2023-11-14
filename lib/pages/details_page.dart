@@ -1,3 +1,4 @@
+import 'package:cryptotradex/util/api_calls.dart';
 import 'package:cryptotradex/widgets/chart/chart.dart';
 import 'package:cryptotradex/widgets/chart/chart_sort_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -9,17 +10,19 @@ import 'package:unicons/unicons.dart';
 
 class DetailsPage extends StatefulWidget {
   final IconData cryptoIcon;
-  final String crypto;
+  final String cryptoName;
   final String cryptoCode;
   final String exchangeCurrency;
+
   final List<FlSpot> spots;
   final double profitPercent;
   final double minY;
   final double maxY;
+
   const DetailsPage({
     Key? key,
     required this.cryptoIcon,
-    required this.crypto,
+    required this.cryptoName,
     required this.cryptoCode,
     required this.exchangeCurrency,
     required this.spots,
@@ -33,18 +36,72 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  late RxList<FlSpot> spots;
   @override
   void initState() {
-    for (var i = 0; i < widget.spots.length; i++) {
-      totalSpotsValue.value += widget.spots[i].y;
-    }
+    spots = widget.spots.obs;
+    minY = widget.minY.obs;
+    maxY = widget.maxY.obs;
     super.initState();
   }
 
-  Rx<double> totalSpotsValue = 0.0.obs;
+  late RxDouble minY;
+  late RxDouble maxY;
+  void changeSort(int i) async {
+    //! i != sortStrings.length - 1 || because 1 year API get is not supported
+    if (i != selectedSort.value && i != sortStrings.length - 1) {
+      selectedSort.value = i;
+      if (i == 0) {
+        spots.value = await ApiCalls().getChart(
+          widget.cryptoCode,
+          widget.exchangeCurrency,
+          '2MIN',
+          DateTime.now().subtract(const Duration(hours: 2)),
+          DateTime.now(),
+        );
+      } else if (i == 1) {
+        spots.value = await ApiCalls().getChart(
+          widget.cryptoCode,
+          widget.exchangeCurrency,
+          '30MIN',
+          DateTime.now().subtract(const Duration(days: 1)),
+          DateTime.now(),
+        );
+      } else if (i == 2) {
+        spots.value = await ApiCalls().getChart(
+          widget.cryptoCode,
+          widget.exchangeCurrency,
+          '1DAY',
+          DateTime.now().subtract(const Duration(days: 7)),
+          DateTime.now(),
+        );
+      } else if (i == 3) {
+        spots.value = await ApiCalls().getChart(
+          widget.cryptoCode,
+          widget.exchangeCurrency,
+          '1DAY',
+          DateTime.now().subtract(const Duration(days: 30)),
+          DateTime.now(),
+        );
+      } else if (i == 4) {
+        spots.value = await ApiCalls().getChart(
+          widget.cryptoCode,
+          widget.exchangeCurrency,
+          '10DAY', //! ONE YEAR IS NOT SUPPORTED!!!
+          DateTime.now().subtract(const Duration(days: 365)),
+          DateTime.now(),
+        );
+      }
+    }
+    List sortedSpots = spots.toList();
+    sortedSpots.sort((a, b) => a.y.compareTo(b.y));
+    minY.value = sortedSpots.first.y;
+    maxY.value = sortedSpots.last.y;
+  }
+
   Rx<int> selectedSort = 2.obs;
   List sortStrings = [
-    '1H',
+    '2H',
     '1D',
     '1W',
     '1M',
@@ -54,14 +111,14 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
     return Scaffold(
-      backgroundColor: themeData.backgroundColor,
+      backgroundColor: themeData.colorScheme.background,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40.0), //appbar size
         child: AppBar(
           bottomOpacity: 0.0,
           elevation: 0.0,
           shadowColor: Colors.transparent,
-          backgroundColor: themeData.backgroundColor,
+          backgroundColor: themeData.colorScheme.background,
           leading: Padding(
             padding: EdgeInsets.only(left: 5.w),
             child: SizedBox(
@@ -87,7 +144,7 @@ class _DetailsPageState extends State<DetailsPage> {
           titleSpacing: 0,
           leadingWidth: 15.w,
           title: Text(
-            widget.crypto,
+            widget.cryptoName,
             style: GoogleFonts.lato(
               color: themeData.primaryColor,
               fontWeight: FontWeight.w600,
@@ -145,7 +202,7 @@ class _DetailsPageState extends State<DetailsPage> {
               padding: EdgeInsets.only(top: 0.5.h),
               child: Center(
                 child: Text(
-                  '\$${widget.spots.last.y.toStringAsFixed(2).replaceFirst('.', ',').replaceAll(RegExp(r'\B(?=(\d{3})+(?!\d))'), '.')}',
+                  '\$${spots.last.y.toStringAsFixed(2).replaceFirst('.', ',').replaceAll(RegExp(r'\B(?=(\d{3})+(?!\d))'), '.')}',
                   style: GoogleFonts.lato(
                     letterSpacing: 1,
                     color: themeData.primaryColor,
@@ -157,7 +214,7 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             Center(
               child: Text(
-                ' ${widget.cryptoCode}/${widget.exchangeCurrency}',
+                '${widget.cryptoCode}/${widget.exchangeCurrency}',
                 style: GoogleFonts.lato(
                   letterSpacing: 1,
                   color: themeData.primaryColor,
@@ -211,13 +268,16 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: SizedBox(
                         width: 85.w,
                         height: 30.h,
-                        child: LineChart(
-                          chart(
-                            false,
-                            widget.spots,
-                            widget.minY,
-                            widget.maxY,
-                            widget.profitPercent >= 0,
+                        child: Obx(
+                          () => LineChart(
+                            chart(
+                              false,
+                              spots,
+                              minY.value,
+                              maxY.value,
+                              double.parse((spots.length - 1).toString()),
+                              widget.profitPercent >= 0,
+                            ),
                           ),
                         ),
                       ),
@@ -236,11 +296,11 @@ class _DetailsPageState extends State<DetailsPage> {
                   itemBuilder: (BuildContext context, int i) {
                     return Obx(() => i == selectedSort.value
                         ? GestureDetector(
-                            onTap: () => selectedSort.value = i,
+                            onTap: () => changeSort(i),
                             child: chartSortWidget(
                                 sortStrings[i], true, themeData))
                         : GestureDetector(
-                            onTap: () => selectedSort.value = i,
+                            onTap: () => changeSort(i),
                             child: chartSortWidget(
                                 sortStrings[i], false, themeData)));
                   },

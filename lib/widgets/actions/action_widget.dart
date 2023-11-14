@@ -1,3 +1,6 @@
+import 'package:cryptotradex/widgets/actions/add_crypto_dialog.dart';
+import 'package:cryptotradex/widgets/actions/remove_crypto_dialog.dart';
+import 'package:cryptotradex/widgets/actions/set_crypto_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -5,15 +8,23 @@ import 'package:sizer/sizer.dart';
 Padding actionWidget(
   IconData actionIcon,
   String actionStr,
+  Function() forceRefresh,
   ThemeData themeData,
-  VoidCallback onTapCallback,
 ) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 2.h),
     child: Column(
       children: [
         InkWell(
-          onTap: onTapCallback, //TODO: add onTap action
+          onTap: () {
+            if (actionStr == 'Add') {
+              displayAddCryptoDialog(forceRefresh, 'Bitcoin', themeData);
+            } else if (actionStr == 'Set') {
+              displaySetCryptoDialog(forceRefresh, themeData);
+            } else if (actionStr == 'Remove') {
+              displayRemoveCryptoDialog(forceRefresh, themeData);
+            }
+          }, //TODO: add onTap action
           child: Container(
             decoration: BoxDecoration(
               color: themeData.primaryColor.withOpacity(0.05),

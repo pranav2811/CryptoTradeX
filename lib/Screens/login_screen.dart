@@ -1,5 +1,5 @@
 import 'package:cryptotradex/Screens/sign_up_screen.dart';
-import 'package:cryptotradex/ui/HomePage.dart';
+import 'package:cryptotradex/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

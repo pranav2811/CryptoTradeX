@@ -8,6 +8,7 @@ LineChartData chart(
   List<FlSpot> spots,
   double minY,
   double maxY,
+  double maxX,
   bool profit,
 ) {
   List<Color> greenColors = [
@@ -23,7 +24,7 @@ LineChartData chart(
     backgroundColor: Colors.black,
     gridData: FlGridData(
       show: !isHomePage,
-      drawVerticalLine: !isHomePage,
+      drawVerticalLine: false,
       drawHorizontalLine: true,
       verticalInterval: 1,
       getDrawingHorizontalLine: (value) {
@@ -48,7 +49,7 @@ LineChartData chart(
             bottomTitles: SideTitles(
               showTitles: true,
               reservedSize: 28,
-              interval: 1,
+              // interval: 1,
               textAlign: TextAlign.start,
               getTextStyles: (context, value) => TextStyle(
                 color: const Color(0xff68737d),
@@ -56,31 +57,38 @@ LineChartData chart(
                 fontSize: 12.sp,
               ),
               getTitles: (value) {
-                switch (value.toInt()) {
-                  case 0:
-                    return '1';
-                  case 1:
-                    return '2';
-                  case 2:
-                    return '3';
-                  case 3:
-                    return '4';
-                  case 4:
-                    return '5';
-                  case 5:
-                    return '6';
-                  case 6:
-                    return '7';
-                  default:
-                    return '';
+                if (maxX == 55) {
+                  //2 hours
+                  if (maxX - value == 0) {
+                    return '0';
+                  } else {
+                    return '-' + ((maxX - value) * 2).toInt().toString();
+                  }
+                } else if (maxX == 47) {
+                  //one day
+                  if (maxX - value == 0) {
+                    return '0';
+                  } else {
+                    return '-' + ((maxX - value) ~/ 2).toString();
+                  }
+                } else if (maxX == 7 || maxX == 30) {
+                  //one week
+                  if (maxX - value == 0) {
+                    return '0';
+                  } else {
+                    return '-' + (maxX - value).toInt().toString();
+                  }
+                } else {
+                  return value.toInt().toString();
                 }
               },
               margin: 8,
             ),
             leftTitles: SideTitles(
               showTitles: true,
-              reservedSize: 35,
-              margin: 10,
+              reservedSize: 60,
+              margin: 15,
+              interval: maxY * 0.15,
               getTextStyles: (context, value) => TextStyle(
                 color: const Color(0xff68737d),
                 fontWeight: FontWeight.bold,
@@ -110,7 +118,7 @@ LineChartData chart(
           }),
     ),
     minX: 0,
-    maxX: 6,
+    maxX: maxX,
     minY: minY,
     maxY: maxY,
     lineBarsData: [
