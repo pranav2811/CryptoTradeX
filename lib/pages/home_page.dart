@@ -75,8 +75,8 @@ class _HomePageState extends State<HomePage> {
           leadingWidth: 15.w,
           title: Image.asset(
             themeData.brightness == Brightness.light
-                ? 'assets/sobGOGdark.png'
-                : 'assets/sobGOGlight.png',
+                ? 'assets/images/login.png'
+                : 'assets/images/login.png',
             height: 3.5.h,
           ),
           centerTitle: true,
