@@ -9,6 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:cryptotradex/Screens/login_screen.dart';
 
 Future<void> main() async {
   try {
@@ -52,7 +53,7 @@ class _MyAppState extends State<MyApp> {
         transitionDuration: const Duration(milliseconds: 500),
         debugShowCheckedModeBanner: false,
         title: 'Crypto App',
-        home: const signInScreen(),
+        home: const loginScreen(),
         theme: darkModeTheme,
         darkTheme: darkModeTheme,
       );
