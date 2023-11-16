@@ -137,8 +137,8 @@ class _loginScreenState extends State<loginScreen> {
                             email: _emailController.text,
                             password: _passwordController.text);
                         // ignore: use_build_context_synchronously
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => const HomePage()));
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const HomePage()));
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -146,8 +146,6 @@ class _loginScreenState extends State<loginScreen> {
                           ),
                         );
                       }
-      
-                      _navigateToHomeScreen(context);
                     },
                     child: const Text(
                       "LOGIN",
@@ -202,10 +200,10 @@ class _loginScreenState extends State<loginScreen> {
     );
   }
 
-  void signIn(){
+  void signIn() {
     if (_formKey.currentState!.validate()) {
-      
-          auth.signInWithEmailAndPassword(
+      auth
+          .signInWithEmailAndPassword(
               email: _emailController.text, password: _passwordController.text)
           .whenComplete(
             () => ScaffoldMessenger.of(context)
