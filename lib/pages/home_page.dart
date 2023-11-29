@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
     return Scaffold(
+      extendBody: true,
       backgroundColor: themeData.colorScheme.background,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40.0), //appbar size
@@ -73,11 +74,14 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading: false,
           titleSpacing: 0,
           leadingWidth: 15.w,
-          title: Image.asset(
-            themeData.brightness == Brightness.light
-                ? 'assets/images/logo.png'
-                : 'assets/images/logo.png',
-            height: 3.5.h,
+          title: Container(
+            padding: EdgeInsets.only(top: 20.0,),
+            height: 15.5.h,
+            child: Image.asset(
+              themeData.brightness == Brightness.light
+                  ? 'assets/images/logo.png'
+                  : 'assets/images/logo.png',
+            ),
           ),
           centerTitle: true,
           actions: <Widget>[

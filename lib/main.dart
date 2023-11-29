@@ -1,4 +1,3 @@
-import 'package:cryptotradex/Screens/sign_up_screen.dart';
 import 'package:cryptotradex/data/theme_data.dart';
 import 'package:cryptotradex/firebase_options.dart';
 import 'package:flutter/material.dart';

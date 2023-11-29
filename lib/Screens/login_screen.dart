@@ -3,6 +3,7 @@ import 'package:cryptotradex/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cryptotradex/Screens/forget_password.dart';
 
 import '../view_model/loginViewModel.dart';
 
@@ -14,6 +15,7 @@ class loginScreen extends StatefulWidget {
 }
 
 class _loginScreenState extends State<loginScreen> {
+  bool valuefirst = false;
   bool _isVisible = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   final LoginViewModel loginController = Get.put(LoginViewModel());
@@ -102,12 +104,13 @@ class _loginScreenState extends State<loginScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(() => Checkbox(
-                          value: loginController.checkValue.value,
-                          onChanged: (value) {
-                            //RxBool temp = value as RxBool;
-                            loginController.changeValue(RxBool(value!));
-                          })),
+                      Checkbox(
+                          value: this.valuefirst,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              this.valuefirst = value!;
+                            });
+                          }),
                       const SizedBox(width: 10),
                       const Padding(
                         padding: EdgeInsets.only(top: 11.0),
@@ -152,16 +155,20 @@ class _loginScreenState extends State<loginScreen> {
                       style: TextStyle(fontSize: 20, color: Color(0xFF201A30)),
                     ),
                   ),
+                  GestureDetector(
+                      child: const Text(
+                        "Forgot Password?",
+                        style: TextStyle(
+                          fontSize: 15,
+                          decoration: TextDecoration.underline,
+                          color: Color(0xFF0DF5E3),
+                        ),
+                      ),
+                      onTap: () {
+                        _navigateToForgetPasswordScreen(context);
+                      }),
                   const SizedBox(
                     height: 10,
-                  ),
-                  const Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 15,
-                      decoration: TextDecoration.underline,
-                      color: Color(0xFF0DF5E3),
-                    ),
                   ),
                   const SizedBox(
                     height: 50,
@@ -259,4 +266,9 @@ void _navigateToSignUpScreen(BuildContext context) {
 void _navigateToHomeScreen(BuildContext context) {
   Navigator.of(context)
       .push(MaterialPageRoute(builder: (context) => const HomePage()));
+}
+
+void _navigateToForgetPasswordScreen(BuildContext context) {
+  Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const ForgetPasswordScreen()));
 }
