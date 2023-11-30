@@ -142,12 +142,6 @@ class _loginScreenState extends State<loginScreen> {
                             .signInWithEmailAndPassword(
                                 email: _emailController.text,
                                 password: _passwordController.text);
-                        // await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        //     email: _emailController.text,
-                        //     password: _passwordController.text);
-                        // ignore: use_build_context_synchronously
-                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        //     builder: (context) => const HomePage()));
 
                         if (userCredential.user != null) {
                           Navigator.of(context).pushReplacement(
