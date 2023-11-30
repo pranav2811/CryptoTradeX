@@ -2,6 +2,7 @@ import 'package:cryptotradex/Screens/sign_up_screen.dart';
 import 'package:cryptotradex/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:cryptotradex/Screens/forget_password.dart';
 
@@ -136,18 +137,42 @@ class _loginScreenState extends State<loginScreen> {
                             fontWeight: FontWeight.bold)),
                     onPressed: () async {
                       try {
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text);
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .signInWithEmailAndPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text);
+                        // await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        //     email: _emailController.text,
+                        //     password: _passwordController.text);
                         // ignore: use_build_context_synchronously
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const HomePage()));
+                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        //     builder: (context) => const HomePage()));
+
+                        if (userCredential.user != null) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Invalid Credentials",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              textColor: Colors.white);
+                        }
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(e.toString()),
+                            content:
+                                Text("Invalid Credentials. Please Try Again!"),
                           ),
                         );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text(e.toString()),
+                        //   ),
+                        // );
                       }
                     },
                     child: const Text(
